@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IELTS Mastery Institute</title>
+<link rel="icon" href="img/dp-logo1131.logowik.com.webp">
+<style>
+  /* RESET */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.4s ease, color 0.4s ease;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 80px; /* for footer spacing */
+  }
+
+  :root {
+    --bg: #0a0f29;
+    --text: #f0f0f0;
+    --primary: #ffd700;
+    --secondary: #1c1f3a;
+    --accent: #243b55;
+    --hover: #1ebe5d;
+  }
+
+  /* LIGHT THEME */
+  body.light {
+    --bg: #f9f9f9;
+    --text: #222;
+    --primary: #b8860b;
+    --secondary: #ddd;
+    --accent: #aaa;
+    --hover: #3a9d23;
+  }
+
+  header {
+    background: linear-gradient(to right, var(--secondary), var(--accent));
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    user-select: none;
+  }
+
+  header h1 {
+    font-size: 3em;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  header p {
+    font-style: italic;
+    font-size: 1.3em;
+    color: var(--text);
+  }
+
+  nav {
+    background: var(--secondary);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    padding: 15px 25px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    cursor: pointer;
+  }
+  nav a:hover, nav a.active {
+    background: var(--primary);
+    color: var(--secondary);
+    transform: scale(1.1);
+    border-radius: 6px;
+  }
+
+  /* MOBILE MENU */
+  #menu-toggle {
+    display: none;
+  }
+
+  label[for="menu-toggle"] {
+    display: none;
+    cursor: pointer;
+    padding: 15px 20px;
+    color: var(--primary);
+    font-size: 2rem;
+    user-select: none;
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      width: 100%;
+    }
+    nav.open {
+      max-height: 500px; /* enough to show menu */
+    }
+    nav a {
+      padding: 12px 10px;
+      font-size: 1.2em;
+      width: 100%;
+      border-radius: 0;
+    }
+    label[for="menu-toggle"] {
+      display: block;
+      position: fixed;
+      top: 25px;
+      right: 25px;
+      z-index: 1100;
+    }
+  }
+
+  section {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
+  }
+
+  section h2 {
+    color: var(--primary);
+    font-size: 2.4em;
+    margin-bottom: 20px;
+    text-align: center;
+    user-select: none;
+  }
+
+  .home {
+    height: 450px;
+    background: linear-gradient(to right, rgba(20,30,48,0.85), rgba(36,59,85,0.85)), url('https://images.unsplash.com/photo-1556012018-94bd3f6f26d7?auto=format&fit=crop&w=1600&q=80') no-repeat center/cover;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    user-select: none;
+  }
+  .home h1 {
+    font-size: 3.4em;
+    margin-bottom: 15px;
+    color: var(--primary);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  }
+  .home p {
+    max-width: 600px;
+    font-style: italic;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+  }
+
+  ul {
+    list-style: square inside;
+    font-size: 1.2em;
+    padding-left: 0;
+  }
+
+  ul li {
+    margin: 12px 0;
+  }
+
+  .adv-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 30px;
+  }
+
+  .adv-item {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 6px solid var(--primary);
+    padding: 25px;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text);
+  }
+  .adv-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(255,215,0,0.4);
+  }
+  .adv-item h3 {
+    margin-bottom: 8px;
+    user-select: none;
+  }
+
+  .testimonial, .teacher-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 5px solid var(--primary);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    font-style: italic;
+    font-size: 1.1em;
+    user-select: none;
+  }
+
+  .testimonial h4, .teacher-card h4 {
+    margin-top: 15px;
+    text-align: right;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .contact p {
+    margin-bottom: 12px;
+    font-size: 1.15em;
+  }
+
+  .map-container {
+    margin-top: 25px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+
+  .map-container iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+  }
+
+  footer {
+    background: var(--secondary);
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+    font-size: 0.9em;
+    color: #bbb;
+    user-select: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
+  }
+
+  /* WhatsApp floating button */
+  .whatsapp {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    padding: 16px;
+    border-radius: 50%;
+    font-size: 28px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+    z-index: 1000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: background-color 0.3s;
+  }
+  .whatsapp:hover {
+    background-color: #1ebe5d;
+  }
+
+  /* Back to top */
+  .top-btn {
+    position: fixed;
+    bottom: 150px;
+    right: 20px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+    display: none;
+    box-shadow: 0 5px 15px rgba(255,215,0,0.6);
+    transition: background-color 0.3s ease;
+  }
+  .top-btn:hover {
+    background-color: #c9a700;
+  }
+
+  /* Contact form */
+  form {
+    max-width: 600px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  form input, form textarea {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    resize: vertical;
+    background-color: rgba(255,255,255,0.2);
+    color: var(--text);
+    transition: background-color 0.3s ease;
+  }
+  body.light form input, body.light form textarea {
+    background-color: #fff;
+    color: #222;
+  }
+  form input::placeholder, form textarea::placeholder {
+    color: var(--accent);
+  }
+  body.light form input::placeholder, body.light form textarea::placeholder {
+    color: #777;
+  }
+  form input:focus, form textarea:focus {
+    outline: 3px solid var(--primary);
+    background-color: rgba(255,255,255,0.9);
+    color: var(--secondary);
+  }
+
+  form button {
+    padding: 14px 0;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--secondary);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  form button:hover {
+    background-color: #c9a700;
+  }
+
+  /* Dark/Light toggle button */
+  #theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: var(--secondary);
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.7);
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  #theme-toggle:hover {
+    background-color: #c9a700;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>IELTS Mastery Institute</h1>
+  <p>Your Pathway to Global Opportunities</p>
+</header>
+
+<input type="checkbox" id="menu-toggle" aria-label="Toggle menu" />
+<label for="menu-toggle" aria-expanded="false" aria-controls="nav-menu">&#9776;</label>
+<nav id="nav-menu" aria-label="Primary navigation">
+  <a href="#home" class="active" tabindex="0">Home</a>
+  <a href="#about" tabindex="0">About</a>
+  <a href="#courses" tabindex="0">Courses</a>
+  <a href="#advantages" tabindex="0">Advantages</a>
+  <a href="#testimonials" tabindex="0">Testimonials</a>
+  <a href="#teacher" tabindex="0">Teacher</a>
+  <a href="#contact" tabindex="0">Contact</a>
+</nav>
+
+<section class="home" id="home">
+  <h1>Dream Big. Speak Bold.</h1>
+  <p>Crack IELTS with Confidence & Clarity</p>
+</section>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>Welcome to IELTS Mastery Institute — where your journey to international success begins. We’re not just a coaching center; we’re a launchpad. Our seasoned instructors, real-world practice modules, and supportive environment make us your best bet for Band 7 and beyond.</p>
+</section>
+
+<section id="courses">
+  <h2>Courses We Offer</h2>
+  <ul>
+    <li>IELTS Academic & General Training</li>
+    <li>Weekly Mock Tests + Band Feedback</li>
+    <li>Speaking & Listening Bootcamps</li>
+    <li>Writing Correction + One-on-One Reviews</li>
+    <li>Online/Offline Hybrid Flex Schedule</li>
+  </ul>
+</section>
+
+<section id="advantages">
+  <h2>Why Choose Us?</h2>
+  <div class="adv-list">
+    <div class="adv-item"><h3>🌐 Global Recognition</h3><p>Your dream is one test away.</p></div>
+    <div class="adv-item"><h3>🧠 Expert Trainers</h3><p>Strategy, feedback, and mentorship.</p></div>
+    <div class="adv-item"><h3>🧪 Mock Test Labs</h3><p>Confidence through practice.</p></div>
+    <div class="adv-item"><h3>🕒 Flexible Scheduling</h3><p>Morning, evening, or online classes.</p></div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <h2>Student Testimonials</h2>
+  <div class="testimonial" tabindex="0">
+    <p>“From Band 5.5 to Band 8 in 6 weeks. Thank you IELTS Mastery!”</p>
+    <h4>- Arjun Perera</h4>
+  </div>
+  <div class="testimonial" tabindex="0">
+    <p>“Got my Canadian PR thanks to your training.”</p>
+    <h4>- Nadeesha Fernando</h4>
+  </div>
+</section>
+
+<section id="teacher">
+  <h2>Meet Our Lead Trainer</h2>
+  <div class="teacher-card" tabindex="0">
+    <p>“We don’t just teach English — we craft confidence.”</p>
+    <h4>- Mr. Asardeen, Certified IELTS Trainer</h4>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p><strong>📞 Phone:</strong> +94 76 676 7891</p>
+  <p><strong>📧 Email:</strong> asardennbse@gmail.com</p>
+  <p><strong>📍 Address:</strong> Located in Oddamavadi, DP Education IT Campus, Sri Lanka</p>
+
+  <div class="map-container" aria-label="Google Maps location of DP Education Oddamavadi Sri Lanka">
+    <iframe src="https://www.google.com/maps?q=DP%20Education%20Oddamavadi%20Sri%20Lanka&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <form id="contactForm" novalidate aria-label="Contact form">
+    <input type="text" id="name" placeholder="Your Name" required aria-required="true" aria-describedby="nameHelp" />
+    <input type="email" id="email" placeholder="Your Email" required aria-required="true" aria-describedby="emailHelp" />
+    <textarea id="message" rows="5" placeholder="Your Message" required aria-required="true" aria-describedby="messageHelp"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+  <p style="text-align: center; margin-top: 10px;">Developed By: Mohamed Thaslim Sahath Amla</p>
+</section>
+
+<footer>
+  <p>&copy; 2025 IELTS Mastery Institute. Crafted with precision & passion.</p>
+
+</footer>
+
+<a href="https://wa.me/94766767891" class="whatsapp" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
+<div class="top-btn" title="Back to Top" role="button" aria-label="Back to top" tabindex="0">⬆️ Top</div>
+<button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark/light theme">🌙 Dark Mode</button>
+
+<script>
+  // Mobile menu toggle for smaller screens
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const menuLabel = document.querySelector('label[for="menu-toggle"]');
+
+  menuToggle.addEventListener('change', () => {
+    if (menuToggle.checked) {
+      navMenu.classList.add('open');
+      menuLabel.setAttribute('aria-expanded', 'true');
+    } else {
+      navMenu.classList.remove('open');
+      menuLabel.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Highlight nav links on click and smooth scroll
+  const navLinks = navMenu.querySelectorAll('a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      if (window.innerWidth <= 768) {
+        menuToggle.checked = false;
+        navMenu.classList.remove('open');
+        menuLabel.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Back to top button
+  const topBtn = document.querySelector('.top-btn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 250) {
+      topBtn.style.display = 'block';
+    } else {
+      topBtn.style.display = 'none';
+    }
+  });
+  topBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  topBtn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  // Dark/Light theme toggle with localStorage persistence
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  if (currentTheme === 'light') {
+    document.body.classList.add('light');
+    themeToggleBtn.textContent = '🌙 Dark Mode';
+    themeToggleBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  themeToggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    themeToggleBtn.textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+    themeToggleBtn.setAttribute('aria-pressed', isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+
+  // Simple form submission handler with validation
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = contactForm.name.value.trim();
+    const email = contactForm.email.value.trim();
+    const message = contactForm.message.value.trim();
+
+    if (!name || !email || !message) {
+      alert('Please fill out all fields before submitting.');
+      return;
+    }
+
+    // Basic email regex validation
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (!emailPattern.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    alert(`Thanks for reaching out, ${name}! We'll get back to you soon.`);
+
+    // Reset form fields after submission
+    contactForm.reset();
+  });
+
+</script>
+
+</body>
+</html>
